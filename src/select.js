@@ -74,8 +74,10 @@ define(function(require, exports, module) {
                 trigger.after(newTrigger).hide();
 
                 // trigger 如果为 select 则根据 select 的结构生成
-                this.model = convertSelect(trigger[0], this.get('classPrefix'));
-
+                this.model = {
+                    select: convertSelect(trigger[0]),
+                    classPrefix: this.get('classPrefix')
+                };
             } else {
                 // 如果 name 存在则创建隐藏域
                 var selectName = this.get('name');
@@ -92,7 +94,11 @@ define(function(require, exports, module) {
                 }
 
                 // trigger 如果为其他 DOM，则由用户提供 model
-                this.model = completeModel(this.model, this.get('classPrefix'));
+                // newModel
+                this.model = {
+                    select: completeModel(this.model),
+                    classPrefix: this.get('classPrefix')
+                };
             }
         },
 
@@ -187,7 +193,10 @@ define(function(require, exports, module) {
         },
 
         syncModel: function(model) {
-            this.model = completeModel(model, this.get('classPrefix'));
+            this.model = {
+                select: completeModel(model),
+                classPrefix: this.get('classPrefix')
+            };
             this.renderPartial('[data-role=content]');
             // 渲染后重置 select 的属性
             this.options = this.$('[data-role=content]').children();
@@ -302,7 +311,7 @@ define(function(require, exports, module) {
     //   {value: 'value2', text: 'text2',
     //      defaultSelected: true, selected: true}
     // ]
-    function convertSelect(select, classPrefix) {
+    function convertSelect(select) {
         var i, model = [], options = select.options,
             l = options.length, hasDefaultSelect = false;
         for (i = 0; i < l; i++) {
@@ -325,11 +334,11 @@ define(function(require, exports, module) {
         if (!hasDefaultSelect) {
             newModel[0].selected = 'true';
         }
-        return {select: model, classPrefix: classPrefix};
+        return model;
     }
 
     // 补全 model 对象
-    function completeModel(model, classPrefix) {
+    function completeModel(model) {
         var i, j, l, ll, newModel = [], selectIndexArray = [];
         for (i = 0, l = model.length; i < l; i++) {
             var o = model[i];
@@ -350,7 +359,7 @@ define(function(require, exports, module) {
         } else { //当所有都没有设置 selected 则默认设置第一个
             newModel[0].selected = 'true';
         }
-        return {select: newModel, classPrefix: classPrefix};
+        return newModel;
     }
 
     function getOptionIndex(option, options) {
