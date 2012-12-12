@@ -171,6 +171,10 @@ define(function(require, exports, module) {
 
         destroy: function() {
             this.element.remove();
+            var source = this.get('selectSource');
+            if (source && source[0].tagName.toLowerCase() == 'select') {
+                this.get('trigger').remove();
+            }
             Select.superclass.destroy.call(this);
         },
 
