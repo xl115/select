@@ -94,11 +94,12 @@ define(function(require, exports, module) {
                 }
 
                 // trigger 如果为其他 DOM，则由用户提供 model
-                // newModel
+                console.log(this.model)
                 this.model = {
                     select: completeModel(this.model),
                     classPrefix: this.get('classPrefix')
                 };
+                console.log(this.model)
             }
         },
 
@@ -351,6 +352,9 @@ define(function(require, exports, module) {
                 selectIndexArray.push(i);
             } else {
                 o.selected = o.defaultSelected = 'false';
+            }
+            if (o.options) {
+                o.options = completeModel(o.options);
             }
             newModel.push(o);
         }
