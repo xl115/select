@@ -94,12 +94,10 @@ define(function(require, exports, module) {
                 }
 
                 // trigger 如果为其他 DOM，则由用户提供 model
-                console.log(this.model)
                 this.model = {
                     select: completeModel(this.model),
                     classPrefix: this.get('classPrefix')
                 };
-                console.log(this.model)
             }
         },
 
