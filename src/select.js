@@ -14,7 +14,7 @@ define(function(require, exports, module) {
             trigger: {
                 value: null, // required
                 getter: function(val) {
-                    return $(val).eq(0);
+                    return val ? $(val).eq(0) : null;
                 }
             },
             classPrefix: 'ui-select',
@@ -56,6 +56,15 @@ define(function(require, exports, module) {
             Select.superclass.initAttrs.call(this, config, dataAttrsConfig);
 
             var trigger = this.get('trigger');
+            // trigger 可能不存在
+            if (!trigger) {
+                this.model = {
+                    select: completeModel(this.model),
+                    classPrefix: this.get('classPrefix')
+                };
+                return;
+            }
+
             if (trigger[0].tagName.toLowerCase() == 'select') {
                 // 初始化 name
                 // 如果 select 的 name 存在则覆盖 name 属性
@@ -103,14 +112,17 @@ define(function(require, exports, module) {
 
         setup: function() {
             var that = this;
-            var trigger = this.get('trigger')
-                .on('click', {self: this}, this._trigger_click)
-                .on('mouseenter', function(e) {
-                    trigger.addClass(that.get('classPrefix') + '-trigger-hover');
-                })
-                .on('mouseleave', function(e) {
-                    trigger.removeClass(that.get('classPrefix') + '-trigger-hover');
-                });
+            var trigger = this.get('trigger');
+            if (trigger) {
+                trigger
+                    .on('click', {self: this}, this._trigger_click)
+                    .on('mouseenter', function(e) {
+                        trigger.addClass(that.get('classPrefix') + '-trigger-hover');
+                    })
+                    .on('mouseleave', function(e) {
+                        trigger.removeClass(that.get('classPrefix') + '-trigger-hover');
+                    });
+            }
 
             this.options = this.$('[data-role=content]').children();
             // 初始化 select 的参数
@@ -151,12 +163,14 @@ define(function(require, exports, module) {
         // trigger 的宽度和浮层保持一致
         _setTriggerWidth: function() {
             var trigger = this.get('trigger');
-            var width = this.element.outerWidth();
-            var pl = parseInt(trigger.css('padding-left'), 10);
-            var pr = parseInt(trigger.css('padding-right'), 10);
-            var bl = parseInt(trigger.css('border-left-width'), 10);
-            var br = parseInt(trigger.css('border-right-width'), 10);
-            trigger.css('width', width - pl - pr - bl - br);
+            if (trigger) {
+                var width = this.element.outerWidth();
+                var pl = parseInt(trigger.css('padding-left'), 10);
+                var pr = parseInt(trigger.css('padding-right'), 10);
+                var bl = parseInt(trigger.css('border-left-width'), 10);
+                var br = parseInt(trigger.css('border-right-width'), 10);
+                trigger.css('width', width - pl - pr - bl - br);
+            }
         },
 
         // borrow from dropdown
@@ -182,7 +196,7 @@ define(function(require, exports, module) {
             this.element.remove();
             var source = this.get('selectSource');
             if (source && source[0].tagName.toLowerCase() == 'select') {
-                this.get('trigger').remove();
+                this.get('trigger') && this.get('trigger').remove();
             }
             Select.superclass.destroy.call(this);
         },
@@ -288,11 +302,13 @@ define(function(require, exports, module) {
 
             // 填入选中内容，位置先找 "data-role"="trigger-content"，再找 trigger
             var trigger = this.get('trigger');
-            var triggerContent = trigger.find('[data-role=trigger-content]');
-            if (triggerContent.length) {
-                triggerContent.html(selector.html());
-            } else {
-                trigger.html(selector.html());
+            if (trigger) {
+                var triggerContent = trigger.find('[data-role=trigger-content]');
+                if (triggerContent.length) {
+                    triggerContent.html(selector.html());
+                } else {
+                    trigger.html(selector.html());
+                }
             }
             this.currentItem = selector;
         },
@@ -300,7 +316,9 @@ define(function(require, exports, module) {
         _onRenderDisabled: function(val) {
             var className = this.get('classPrefix') + '-disabled';
             var trigger = this.get('trigger');
-            trigger[(val ? 'addClass' : 'removeClass')](className);
+            if (trigger) {
+                trigger[(val ? 'addClass' : 'removeClass')](className);
+            }
         }
     });
 
