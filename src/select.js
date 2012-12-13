@@ -42,10 +42,10 @@ define(function(require, exports, module) {
                 this.select(target);
             },
             'mouseenter [data-role=item]': function(e) {
-                $(e.currentTarget).addClass(this.get('classPrefix') + '-hover');
+                this._mouseEnterEvent(e);
             },
             'mouseleave [data-role=item]': function(e) {
-                $(e.currentTarget).removeClass(this.get('classPrefix') + '-hover');
+                this._mouseLeaveEvent(e);
             }
         },
 
@@ -136,6 +136,16 @@ define(function(require, exports, module) {
             Select.superclass.show.call(this);
             this._setPosition();
             return this;
+        },
+
+        _mouseEnterEvent: function(e) {
+            $(e.currentTarget)
+                .addClass(this.get('classPrefix') + '-hover');
+        },
+
+        _mouseLeaveEvent: function(e) {
+            $(e.currentTarget)
+                .removeClass(this.get('classPrefix') + '-hover');
         },
 
         // trigger 的宽度和浮层保持一致
@@ -295,6 +305,7 @@ define(function(require, exports, module) {
     });
 
     module.exports = Select;
+    module.exports.getOptionIndex = getOptionIndex;
 
     // Helper
     // ------
