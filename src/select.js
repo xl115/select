@@ -37,16 +37,9 @@ define(function(require, exports, module) {
         },
 
         events: {
-            'click [data-role=item]': function(e) {
-                var target = $(e.currentTarget);
-                this.select(target);
-            },
-            'mouseenter [data-role=item]': function(e) {
-                this._mouseEnterEvent(e);
-            },
-            'mouseleave [data-role=item]': function(e) {
-                this._mouseLeaveEvent(e);
-            }
+            'click [data-role=item]': '_clickEvent',
+            'mouseenter [data-role=item]': '_mouseEnterEvent',
+            'mouseleave [data-role=item]': '_mouseLeaveEvent'
         },
 
         // 覆盖父类
@@ -150,6 +143,11 @@ define(function(require, exports, module) {
             return this;
         },
 
+        _clickEvent: function(e) {
+            var target = $(e.currentTarget);
+            this.select(target);
+        },
+
         _mouseEnterEvent: function(e) {
             $(e.currentTarget)
                 .addClass(this.get('classPrefix') + '-hover');
@@ -206,6 +204,8 @@ define(function(require, exports, module) {
 
         select: function(option) {
             var selectIndex = getOptionIndex(option, this.options);
+            if (selectIndex === -1) return;
+
             var oldSelectIndex = this.get('selectedIndex');
             this.set('selectedIndex', selectIndex);
 
@@ -239,6 +239,7 @@ define(function(require, exports, module) {
 
         getOption: function(option) {
             var index = getOptionIndex(option, this.options);
+            if (index === -1) return null;
             return this.options.eq(index);
         },
 
@@ -250,8 +251,10 @@ define(function(require, exports, module) {
         },
 
         removeOption: function(option) {
-            var removedIndex = getOptionIndex(option, this.options),
-                oldIndex = this.get('selectedIndex'),
+            var removedIndex = getOptionIndex(option, this.options);
+            if (removedIndex === -1) return this;
+
+            var oldIndex = this.get('selectedIndex'),
                 removedOption = this.options.eq(removedIndex);
 
             // 删除 option，更新属性
@@ -398,6 +401,7 @@ define(function(require, exports, module) {
     }
 
     function getOptionIndex(option, options) {
+        if (!options) return -1;
         var index;
         if ($.isNumeric(option)) { // 如果是索引
             index = option;

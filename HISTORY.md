@@ -1,7 +1,5 @@
 # HISTORY
 
----
-
 ## 0.9.2
 
 `[improve]` [#30](https://github.com/aralejs/select/issues/30) 支持解析 html
