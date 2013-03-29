@@ -21,6 +21,7 @@
         "select.js": "."
     },
     "tests": [
-        "select"
+        "select",
+        "cascade-select"
     ]
 }
