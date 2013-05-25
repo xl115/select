@@ -1,178 +1,74 @@
-<!DOCTYPE HTML>
-<html lang="zh">
+<!DOCTYPE html>
+<html>
+
   <head>
-    <meta charset="UTF-8">
-    <title>Arale - Select</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="generator" content="nico 0.1.0-rc" />
-    <link type="image/x-icon" href="./static/css/favicon.ico" rel="icon">
-    <link rel="stylesheet" href="./static/css/normalize.css" />
-    <link rel="stylesheet" href="./static/css/site.css" />
-    <link rel="stylesheet" href="./static/css/solarized.css" />
-    <script src="https://a.alipayobjects.com/seajs/1.2.1/sea.js"></script>
-    <script src="./static/js/arale-helper.js"></script>
-    <script src="./static/js/site.js"></script>
-<script>
-  (function() {
-    var data;
-    seajs._package = data = {"name":"select","version":"1.0.0","root":"arale","description":"模拟 select 的组件","tag":"widget","homepage":"http://aralejs.org/select","repository":{"type":"git","url":"https://github.com/aralejs/select.git"},"bugs":{"url":"https://github.com/aralejs/select/issues"},"dependencies":{"$":"$","overlay":"arale/overlay/0.9.12/overlay","templatable":"arale/widget/1.0.2/templatable"},"output":{"select.js":"."},"tests":["select"]}
-    data.dependencies && (delete data.dependencies['$'])
-    data.devDependencies && (delete data.devDependencies['$'])
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Select : Select Widget" />
 
-    seajs.config({ alias: data.dependencies })
-    seajs.config({ alias: data.devDependencies })
-    seajs.config({ alias: {"advanced-select":"./src/advanced-select.js","select":"./src/select.js"} })
-  })();
-</script>
-    <!--[if lt IE 9]>
-    <script src="./static/js/html5shiv.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Select</title>
   </head>
+
   <body>
-    <div id="body-wrapper">
-      <aside id="sidebar-wrapper">
-        <h1><a href="./">Select</a><sup class="package-root"><a href="/">arale</a></sup></h1>
-        <p class="version">当前版本：<span>1.0.0</span></p>
-        <p class="description">模拟 select 的组件</p>
-        <a class="source" href="https://github.com/aralejs/select.git" target="_blank">View the Project</a>
-        <ul id="navigation" role="navigation">
-          <li><a href="./">文档</a></li>
-          <li><a href="./examples/advanced-select.html">演示</a></li>
-          <li><a href="./history.html">历史</a></li>
-          <li><a href="./tests/runner.html" target="_blank">用例</a></li>
-          <li><a href="https://github.com/aralejs/select/issues" target="_blank">讨论</a></li>
-        </ul>
-        
 
-      </aside>
-      <div id="content-wrapper">
-        <div id="content">
-<article class="hentry">
-  <h1 class="entry-title">Select</h1>
-  <div class="entry-content">
-    <p>模拟 select 的组件。</p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/xl115/select">View on GitHub</a>
 
-<hr/>
-<h2 id="%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95">使用方法</h2><h3 id="trigger-%E4%B8%BA-select">trigger 为 select</h3>
-<p>html 片段</p>
-<div class="highlight"><pre><code class="xml"><span class="tag">&lt;<span class="title">select</span> <span class="attribute">id</span>=<span class="value">"city"</span> <span class="attribute">name</span>=<span class="value">"city"</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span>=<span class="value">"value1"</span>&gt;</span>text1<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
-    <span class="tag">&lt;<span class="title">option</span> <span class="attribute">value</span>=<span class="value">"value2"</span>&gt;</span>text2<span class="tag">&lt;/<span class="title">option</span>&gt;</span>
-<span class="tag">&lt;/<span class="title">select</span>&gt;</span>
-</code></pre></div>
-<p>javascript 片段</p>
-<div class="highlight"><pre><code class="javascript"><span class="keyword">new</span> Select({
-    trigger: <span class="string">'#city'</span>
-}).render()
-</code></pre></div><h3 id="trigger-%E4%B8%BA%E5%85%B6%E4%BB%96-dom">trigger 为其他 DOM</h3>
-<p>html 片段</p>
-<div class="highlight"><pre><code class="xml"><span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"#"</span> <span class="attribute">id</span>=<span class="value">"city"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span>
-</code></pre></div>
-<p>javascript 片段</p>
-<div class="highlight"><pre><code class="javascript"><span class="keyword">new</span> Select({
-    trigger: <span class="string">'#city'</span>,
-    name: <span class="string">'city'</span>,
-    model: [
-        {value:<span class="string">'value1'</span>, text: <span class="string">'text1'</span>},
-        {value:<span class="string">'value2'</span>, text: <span class="string">'text2'</span>}
-    ]
-}).render();
-</code></pre></div><h2 id="%E9%85%8D%E7%BD%AE%E8%AF%B4%E6%98%8E">配置说明</h2><h3 id="trigger-em-element-em">trigger <em>element</em></h3>
-<p>trigger 可以为 select 或 其他任何 DOM。</p>
+          <h1 id="project_title">Select</h1>
+          <h2 id="project_tagline">Select Widget</h2>
 
-<p><strong>注意：</strong>trigger只能为一个 DOM，如果选出来多个会取第一个</p>
-
-<ul>
-<li>如果为 select，会将其隐藏并生成一个 a 标签放在原来的位置。</li>
-<li>如果为 DOM，实例化的时候则需要提供 model 作为数据源</li>
-</ul>
-
-<p>如果 trigger 比较复杂，可以选择 DOM 自定义结构，而且需要设置 <code>data-role=&quot;trigger-content&quot;</code> 来指定填入内容的位置。</p>
-<h3 id="model-em-object-em">model <em>object</em></h3>
-<p>model 的来源有两处</p>
-
-<ol>
-<li>初始化传入</li>
-<li>如果 trigger 为 select，则会根据结构生成 model</li>
-</ol>
-
-<p>model 的格式为</p>
-<div class="highlight"><pre><code class="javascript">[
-    {value:<span class="string">'value1'</span>, text: <span class="string">'text1'</span>, selected: <span class="literal">true</span>},
-    {value:<span class="string">'value2'</span>, text: <span class="string">'text2'</span>}
-]
-</code></pre></div>
-<p><code>value</code> <code>text</code> <code>selected</code> 均为 option 的属性</p>
-<h3 id="template-em-string-em">template <em>string</em></h3>
-<p>生成组件的模版，数据源为 model。</p>
-<h3 id="classprefix-em-string-em-em-0-9-0-%E4%BF%AE%E6%94%B9%EF%BC%8C%E4%B9%8B%E5%89%8D%E4%B8%BA-prefix-em">classPrefix <em>string</em> <em>(0.9.0 修改，之前为 prefix)</em></h3>
-<p>样式前缀，默认为 <code>ui-select</code></p>
-<h3 id="name-em-string-em">name <em>string</em></h3>
-<p>模拟 select 的属性，表单项需要的 name 值，等同于 <code>select.name</code></p>
-
-<p><strong>注意</strong>：如果 trigger 不是 select，那么会先在页面找 name 的 input，找不到再创建一个。</p>
-<h3 id="value-em-string-em">value <em>string</em></h3>
-<p>模拟 select 的属性，获取被选中 option 的 value 值，等同于 <code>select.value</code></p>
-<h3 id="length-em-number-em">length <em>number</em></h3>
-<p>模拟 select 的属性，获取 option 的个数，等同于 <code>select.length</code></p>
-<h3 id="selectedindex-em-number-em">selectedIndex <em>number</em></h3>
-<p>模拟 select 的属性，获取被选中 option 的索引值，等同于 <code>select.selectedIndex</code></p>
-<h3 id="multiple-em-boolean-em">multiple <em>boolean</em></h3>
-<p>// TODO</p>
-<h3 id="disabled-em-boolean-em">disabled <em>boolean</em></h3>
-<p>模拟 select 的属性，设置 select 是否可点，等同于 <code>select.disabled</code></p>
-<h2 id="%E6%96%B9%E6%B3%95">方法</h2><h3 id="select-option">.select(option)</h3>
-<p>选中某项，<code>option</code> 支持三种</p>
-
-<ol>
-<li>列表索引，为 Number</li>
-<li>选择器，为 String</li>
-<li>DOM，支持 DOM Element 和 jQuery 对象</li>
-</ol>
-<h3 id="syncmodel-model">.syncModel(model)</h3>
-<p>重新跟进给定的 demo 渲染 select</p>
-
-<p>model 为数据源，和上面提到的 model 格式保持一致</p>
-<h3 id="addoption-option">.addOption(option)</h3>
-<p>将一个选项添加到最后，option 的格式为</p>
-
-<pre>{value: &#39;value1&#39;, text: &#39;text1&#39;}
-</pre>
-<h3 id="getoption-option">.getOption(option)</h3>
-<p>获取某个选项，参数和 <code>.select</code> 方法一致</p>
-<h3 id="removeoption-option">.removeOption(option)</h3>
-<p>删除某个选项，参数和 <code>.select</code> 方法一致</p>
-<h2 id="%E4%BA%8B%E4%BB%B6">事件</h2><h3 id="change">change</h3>
-<p>当选择某项的时候会触发，组件初始化不会触发此事件</p>
-
-<p>回调传回的参数为当前选中的项，为 jQuery 对象</p>
-
-<pre>new Select({
-    trigger: &#39;&#39;
-}).on(&#39;change&#39;, function(target) {
-    console.log(target.html());
-})
-</pre>
-<h2 id="%E9%97%AE%E9%A2%98%E8%AE%A8%E8%AE%BA">问题讨论</h2>
-<ul>
-<li><code>ui-select-item</code> 避免设置 height <a href="https://github.com/aralejs/select/issues/13">#13</a></li>
-<li>trigger 和 template 的字体保持一致，不然宽度可能有不对齐的情况</li>
-</ul>
-
-  </div>
-</article>
-</div>
-      </div>
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/xl115/select/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/xl115/select/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
     </div>
-    <div id="footer-wrapper">
-      <footer>
-      <p class="powered">
-        <a href="http://aralejs.org">Arale</a> •
-        <a href="http://seajs.org">SeaJS</a> •
-        <a href="https://github.com/spmjs/spm">spm</a> •
-        <a href="http://lab.lepture.com/nico/">nico</a>
-        </p>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>Welcome to GitHub Pages.</h3>
+
+<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+
+<pre><code>$ cd your_repo_root/repo_name
+$ git fetch origin
+$ git checkout gh-pages
+</code></pre>
+
+<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+
+<h3>Designer Templates</h3>
+
+<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+
+<h3>Rather Drive Stick?</h3>
+
+<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+
+<h3>Authors and Contributors</h3>
+
+<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+
+<h3>Support or Contact</h3>
+
+<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Select maintained by <a href="https://github.com/xl115">xl115</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
+
+    
+
   </body>
 </html>
